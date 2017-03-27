@@ -19,56 +19,56 @@ An element that renders a single FileThis connection resource as a list item
     <template>
 
         <div id="interior" class="layout horizontal center"
-                 style="padding-left:20px;">
+             style="padding-left:20px;">
 
-                <!-- Name -->
-                <iron-label style="width:165px; font-family:Arial; font-size:15px;">
-                    [[connection.name]]
-                </iron-label>
+            <!-- Name -->
+            <iron-label style="width:165px; font-family:Arial; font-size:15px;">
+                [[connection.name]]
+            </iron-label>
 
-                <div style="width:25px;"></div>
+            <div style="width:25px;"></div>
 
-                <!-- Spacer -->
-                <div class="flex"></div>
-                <div style="width:25px;"></div>
+            <!-- Spacer -->
+            <div class="flex"></div>
+            <div style="width:25px;"></div>
 
-                <!-- Logo -->
-                <div class="layout horizontal center center-justified"
-                     style="width:102px; height:72px;">
-                    <img
-                            style="width:auto; max-width:100%;"
-                            src="[[connection.logoUrl]]">
-                    </img>
-                </div>
-
-                <!-- Spacer -->
-                <div style="width:25px;"></div>
-
-                <!-- Action button and refresh date -->
-                <div class="layout vertical center">
-
-                    <!-- Action button -->
-                    <paper-button raised
-                                  id="actionButton"
-                                  style="width:120px; height:36px; background-color:white"
-                                  on-click="_onActionButtonClicked">
-                        <iron-icon id="icon"></iron-icon>
-                        <div style="width:3px;"></div>
-                        <iron-label id="label" style="font-family:Arial; font-size:12px;"></iron-label>
-                    </paper-button>
-
-                    <div style="height:6px;"></div>
-
-                    <!-- Refresh date -->
-                    <iron-label style="font-family:Arial; font-size:small; font-style:italic;">
-                        Refreshed Jan 21
-                    </iron-label>
-                </div>
-
-                <!-- Spacer -->
-                <div style="width:25px;"></div>
-
+            <!-- Logo -->
+            <div class="layout horizontal center center-justified"
+                 style="width:102px; height:72px;">
+                <img
+                        style="width:auto; max-width:100%;"
+                        src="[[connection.logoUrl]]">
+                </img>
             </div>
+
+            <!-- Spacer -->
+            <div style="width:25px;"></div>
+
+            <!-- Action button and refresh date -->
+            <div class="layout vertical center">
+
+                <!-- Action button -->
+                <paper-button raised
+                              id="actionButton"
+                              style="width:120px; height:36px; background-color:white"
+                              on-click="_onActionButtonClicked">
+                    <iron-icon id="icon"></iron-icon>
+                    <div style="width:3px;"></div>
+                    <iron-label id="label" style="font-family:Arial; font-size:12px;"></iron-label>
+                </paper-button>
+
+                <div style="height:6px;"></div>
+
+                <!-- Refresh date -->
+                <iron-label style="font-family:Arial; font-size:small; font-style:italic;">
+                    Refreshed Jan 21
+                </iron-label>
+            </div>
+
+            <!-- Spacer -->
+            <div style="width:25px;"></div>
+
+        </div>
 
     </template>
 
@@ -78,15 +78,13 @@ An element that renders a single FileThis connection resource as a list item
             is: 'ft-connection-list-item',
 
             properties: {
-                connection:
-                {
+                connection: {
                     type: Object,
                     notify: true,
                     value: null,
                     observer: "_onConnectionChanged"
                 },
-                selected:
-                {
+                selected: {
                     type: Boolean,
                     notify: true,
                     value: false,
@@ -159,7 +157,7 @@ An element that renders a single FileThis connection resource as a list item
 
             _onActionButtonClicked: function(event, detail)
             {
-                this.fire('action-button-clicked', {connection:this.connection});
+                this.fire('action-button-clicked', {connection: this.connection});
             }
 
         });
