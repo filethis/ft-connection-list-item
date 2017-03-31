@@ -77,13 +77,24 @@ An element that renders a single FileThis connection resource as a list item
 
             is: 'ft-connection-list-item',
 
+            /**
+             * Fired when the the action button is clicked.
+             * The event detail argument is the item's connection resource.
+             *
+             * @event actionButtonClicked
+             */
+
             properties: {
+
+                /** The connection resource to be displayed. */
                 connection: {
                     type: Object,
                     notify: true,
                     value: null,
                     observer: "_onConnectionChanged"
                 },
+
+                /** Whether the item should appear selected, or not. */
                 selected: {
                     type: Boolean,
                     notify: true,
