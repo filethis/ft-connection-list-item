@@ -86,7 +86,7 @@ release-github-version:  # Internal target: Tag with current version and push ta
 
 .PHONY: release-confirm
 release-confirm:
-	read -p "Did you remember to bump the version number in project's Makefile and bower.json, change all dependency versions, and then to push all changes? [y/n]" CONT; \
+	@read -p "Did you remember to bump the version number in this project's Makefile and bower.json files, and then to push all changes? [y/n] " CONT; \
 	if [ "$$CONT" = "y" ]; then \
 	  echo "Continuing"; \
 	else \
@@ -98,7 +98,7 @@ release-unsafe: release-github-version release-github-pages release-bower
 	@echo Released version ${VERSION} of \"${NAME}\" project
 
 .PHONY: release
-release: release-confirm release-unsafe  ## Release version of project.  Before running, bump value of "VERSION" variable at top of project Makefile.
+release: release-confirm release-unsafe  ## Release version of project.
 	@echo;
 
 .PHONY: bower-info
