@@ -1,6 +1,5 @@
 {
     "name": "ft-connection-list-item",
-    "version": "0.0.3",
     "description": "An element that renders a single FileThis connection resource as a list item",
     "main": "ft-connection-list-item.html",
     "dependencies": {
