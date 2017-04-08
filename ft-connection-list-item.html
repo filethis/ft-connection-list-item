@@ -81,7 +81,8 @@ An element that renders a single FileThis connection resource as a list item
              * Fired when the the action button is clicked.
              * The event detail argument is the item's connection resource.
              *
-             * @event actionButtonClicked
+             * @event action-button-clicked
+             * @param {Object} detail The selected connection.
              */
 
             properties: {
@@ -168,7 +169,7 @@ An element that renders a single FileThis connection resource as a list item
 
             _onActionButtonClicked: function(event, detail)
             {
-                this.fire('action-button-clicked', {connection: this.connection});
+                this.fire('action-button-clicked', this.connection);
             }
 
         });
