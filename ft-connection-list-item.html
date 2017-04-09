@@ -169,6 +169,10 @@ An element that renders a single FileThis connection resource as a list item
 
             _onActionButtonClicked: function(event, detail)
             {
+                // TODO: The following is not preventing toggle of the selection...
+                event.stopPropagation(); // So that we don't toggle the item selection when the button is clicked
+                event.preventDefault();
+
                 this.fire('action-button-clicked', this.connection);
             }
 
