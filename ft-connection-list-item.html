@@ -78,7 +78,7 @@ An element that renders a single FileThis connection resource as a list item
 
                 <!-- Refresh date -->
                 <iron-label style="font-family:Arial; font-size:small; font-style:italic;">
-                    Refreshed Jan 21
+                    [[_getRefreshDateString(connection)]]
                 </iron-label>
             </div>
 
@@ -108,8 +108,7 @@ An element that renders a single FileThis connection resource as a list item
                 connection: {
                     type: Object,
                     notify: true,
-                    value: null,
-                    observer: "_onConnectionChanged"
+                    value: null
                 },
 
                 /** Whether the item should appear selected, or not. */
@@ -121,53 +120,58 @@ An element that renders a single FileThis connection resource as a list item
                 }
             },
 
-            _onConnectionChanged: function()
+            observers:
+            [
+                "_onConnectionStateChanged(connection.state)"
+            ],
+
+            _onConnectionStateChanged: function(state)
             {
+                if (this.connection == null)
+                    return;
+
                 var label;
                 var icon;
                 var showIcon;
                 var enabled;
-                if (this.connection != null)
+                switch (this.connection.state)
                 {
-                    switch (this.connection.state)
-                    {
-                        case "waiting":
-                            label = "Refresh";
-                            enabled = true;
-                            showIcon = true;
-                            icon = "refresh";
-                            break;
-                        case "connecting":
-                            label = "Connecting…";
-                            enabled = false;
-                            showIcon = false;
-                            icon = "refresh";
-                            break;
-                        case "uploading":
-                            label = "Downloading…";
-                            enabled = false;
-                            showIcon = false;
-                            icon = "refresh";
-                            break;
-                        case "question":
-                            label = "Fix It";
-                            enabled = true;
-                            showIcon = true;
-                            icon = "report-problem";
-                            break;
-                        case "error":
-                            label = "Fix It";
-                            enabled = true;
-                            showIcon = true;
-                            icon = "report-problem";
-                            break;
-                        default:
-                            label = "Refresh";
-                            enabled = true;
-                            showIcon = true;
-                            icon = "refresh";
-                            break;
-                    }
+                    case "waiting":
+                        label = "Refresh";
+                        enabled = true;
+                        showIcon = true;
+                        icon = "refresh";
+                        break;
+                    case "connecting":
+                        label = "Connecting…";
+                        enabled = false;
+                        showIcon = false;
+                        icon = "refresh";
+                        break;
+                    case "downloading":
+                        label = "Downloading…";
+                        enabled = false;
+                        showIcon = false;
+                        icon = "refresh";
+                        break;
+                    case "question":
+                        label = "Fix It";
+                        enabled = true;
+                        showIcon = true;
+                        icon = "report-problem";
+                        break;
+                    case "error":
+                        label = "Fix It";
+                        enabled = true;
+                        showIcon = true;
+                        icon = "report-problem";
+                        break;
+                    default:
+                        label = "Refresh";
+                        enabled = true;
+                        showIcon = true;
+                        icon = "refresh";
+                        break;
                 }
                 this.$.label.innerHTML = label;
                 this.$.actionButton.disabled = !enabled;
@@ -191,6 +195,27 @@ An element that renders a single FileThis connection resource as a list item
                 event.preventDefault();
 
                 this.fire('action-button-clicked', this.connection);
+            },
+
+            _getRefreshDateString: function formatDate(connection)
+            {
+                if (this.connection == null)
+                    return "";
+
+                var checkedDate = new Date(connection.checkedDate);
+
+                var monthNames =
+                    [
+                        "Jan", "Feb", "Mar",
+                        "Apr", "May", "Jun", "Jul",
+                        "Aug", "Sep", "Oct",
+                        "Nov", "Dec"
+                    ];
+
+                var day = checkedDate.getDate();
+                var monthIndex = checkedDate.getMonth();
+
+                return "Refreshed " + monthNames[monthIndex] + ' ' + day;
             }
 
         });
