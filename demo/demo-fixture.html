@@ -41,9 +41,7 @@ An element that renders a single FileThis connection resource as a list item
             <div class="layout horizontal center">
                 <div style="width:150px; font-size:14pt" align="right">Waiting:</div>
                 <div style="width:35px;"></div>
-                <ft-connection-list-item id="itemWaiting"
-                    style="width:400px;">
-                </ft-connection-list-item>
+                <ft-connection-list-item id="itemWaiting"></ft-connection-list-item>
             </div>
 
             <div style="height:25px;"></div>
@@ -52,9 +50,7 @@ An element that renders a single FileThis connection resource as a list item
             <div class="layout horizontal center">
                 <div style="width:150px; font-size:14pt" align="right">Waiting, selected:</div>
                 <div style="width:35px;"></div>
-                <ft-connection-list-item id="itemWaitingSelected"
-                    style="width:400px;">
-                </ft-connection-list-item>
+                <ft-connection-list-item id="itemWaitingSelected"></ft-connection-list-item>
             </div>
 
             <div style="height:25px;"></div>
@@ -63,9 +59,7 @@ An element that renders a single FileThis connection resource as a list item
             <div class="layout horizontal center">
                 <div style="width:150px; font-size:14pt" align="right">Connecting:</div>
                 <div style="width:35px;"></div>
-                <ft-connection-list-item id="itemConnecting"
-                    style="width:400px;">
-                </ft-connection-list-item>
+                <ft-connection-list-item id="itemConnecting"></ft-connection-list-item>
             </div>
 
             <div style="height:25px;"></div>
@@ -74,9 +68,7 @@ An element that renders a single FileThis connection resource as a list item
             <div class="layout horizontal center">
                 <div style="width:150px; font-size:14pt" align="right">Downloading:</div>
                 <div style="width:35px;"></div>
-                <ft-connection-list-item id="itemDownloading"
-                    style="width:400px;">
-                </ft-connection-list-item>
+                <ft-connection-list-item id="itemDownloading"></ft-connection-list-item>
             </div>
 
             <div style="height:25px;"></div>
@@ -85,9 +77,7 @@ An element that renders a single FileThis connection resource as a list item
             <div class="layout horizontal center">
                 <div style="width:150px; font-size:14pt" align="right">Question:</div>
                 <div style="width:35px;"></div>
-                <ft-connection-list-item id="itemQuestion"
-                    style="width:400px;">
-                </ft-connection-list-item>
+                <ft-connection-list-item id="itemQuestion"></ft-connection-list-item>
             </div>
 
             <div style="height:25px;"></div>
@@ -96,8 +86,7 @@ An element that renders a single FileThis connection resource as a list item
             <div class="layout horizontal center">
                 <div style="width:150px; font-size:14pt" align="right">Error:</div>
                 <div style="width:35px;"></div>
-                <ft-connection-list-item id="itemError"
-                    style="width:400px;">
+                <ft-connection-list-item id="itemError">
                 </ft-connection-list-item>
             </div>
         </div>
@@ -128,8 +117,8 @@ An element that renders a single FileThis connection resource as a list item
                 xmlHttpRequest.open('GET', path, true);
                 xmlHttpRequest.onreadystatechange = function()
                 {
-                    if (xmlHttpRequest.readyState == 4 &&
-                        xmlHttpRequest.status == "200")
+                    if (xmlHttpRequest.readyState === 4 &&
+                        xmlHttpRequest.status === 200)
                     {
                         var connection = JSON.parse(xmlHttpRequest.responseText);
 

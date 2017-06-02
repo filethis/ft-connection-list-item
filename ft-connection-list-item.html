@@ -20,6 +20,7 @@ limitations under the License.
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../iron-label/iron-label.html">
 <link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-spinner/paper-spinner-lite.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
 
 <!--
@@ -33,17 +34,27 @@ An element that renders a single FileThis connection resource as a list item
 
     <style include="iron-flex iron-flex-alignment"></style>
 
+    <style is="custom-style">
+      paper-spinner-lite.spinner
+      {
+          --paper-spinner-color: black;
+          --paper-spinner-stroke-width: 2px;
+          width: 17px;
+          height: 17px;
+      }
+    </style>
+
     <template>
 
-        <div id="interior" class="layout horizontal center"
-             style="padding-left:20px;">
+        <div
+                id="interior"
+                class="layout horizontal center"
+                style="width:475px; height:70px; padding-left:20px; padding-right:20px;">
 
             <!-- Name -->
             <iron-label style="width:165px; font-family:Arial; font-size:15px;">
                 [[connection.name]]
             </iron-label>
-
-            <div style="width:25px;"></div>
 
             <!-- Spacer -->
             <div class="flex"></div>
@@ -62,28 +73,52 @@ An element that renders a single FileThis connection resource as a list item
             <div style="width:25px;"></div>
 
             <!-- Action button and refresh date -->
-            <div class="layout vertical center">
+            <div
+                    id="actionButtonAndRefreshDate"
+                    class="layout vertical center"
+                    style="width:120px;">
 
                 <!-- Action button -->
-                <paper-button raised
-                              id="actionButton"
-                              style="width:120px; height:36px; background-color:white"
-                              on-click="_onActionButtonClicked">
+                <paper-button
+                        raised
+                        id="actionButton"
+                        style="width:100px; height:32px; background-color:white"
+                        on-click="_onActionButtonClicked">
                     <iron-icon id="icon"></iron-icon>
                     <div style="width:3px;"></div>
-                    <iron-label id="label" style="font-family:Arial; font-size:12px;"></iron-label>
+                    <iron-label
+                            id="buttonLabel"
+                            style="font-family:Arial; font-size:12px;"></iron-label>
                 </paper-button>
 
-                <div style="height:6px;"></div>
-
                 <!-- Refresh date -->
-                <iron-label style="font-family:Arial; font-size:small; font-style:italic;">
+                <iron-label
+                        id="refreshDate"
+                        style="margin-top:6px; font-family:Arial; font-size:small; font-style:italic;">
                     [[_getRefreshDateString(connection)]]
                 </iron-label>
             </div>
 
-            <!-- Spacer -->
-            <div style="width:25px;"></div>
+            <!-- Spinner and label -->
+            <div
+                    id="spinnerAndLabel"
+                    class="layout horizontal center"
+                    style="width:120px;">
+
+                <!-- Spinner -->
+                <paper-spinner-lite
+                        id="spinner"
+                        class="spinner">
+                </paper-spinner-lite>
+
+                <div style="width:6px;"></div>
+
+                <!-- Label -->
+                <iron-label
+                        id="spinnerLabel"
+                        style="font-family:Arial; font-size:12px; text-transform:uppercase; padding-top:2px">
+                </iron-label>
+            </div>
 
         </div>
 
@@ -118,6 +153,7 @@ An element that renders a single FileThis connection resource as a list item
                     value: false,
                     observer: "_onSelectedChanged"
                 }
+
             },
 
             observers:
@@ -127,56 +163,51 @@ An element that renders a single FileThis connection resource as a list item
 
             _onConnectionStateChanged: function(state)
             {
-                if (this.connection == null)
+                if (this.connection === null)
                     return;
 
                 var label;
                 var icon;
-                var showIcon;
-                var enabled;
+                var working;
                 switch (this.connection.state)
                 {
                     case "waiting":
                         label = "Refresh";
-                        enabled = true;
-                        showIcon = true;
                         icon = "refresh";
+                        working = false;
                         break;
                     case "connecting":
-                        label = "Connecting…";
-                        enabled = false;
-                        showIcon = false;
+                        label = "Connecting";
                         icon = "refresh";
+                        working = true;
                         break;
-                    case "downloading":
-                        label = "Downloading…";
-                        enabled = false;
-                        showIcon = false;
+                    case "uploading":
+                        label = "Downloading";
                         icon = "refresh";
+                        working = true;
                         break;
                     case "question":
                         label = "Fix It";
-                        enabled = true;
-                        showIcon = true;
                         icon = "report-problem";
+                        working = false;
                         break;
                     case "error":
                         label = "Fix It";
-                        enabled = true;
-                        showIcon = true;
                         icon = "report-problem";
+                        working = false;
                         break;
                     default:
                         label = "Refresh";
-                        enabled = true;
-                        showIcon = true;
                         icon = "refresh";
+                        working = false;
                         break;
                 }
-                this.$.label.innerHTML = label;
-                this.$.actionButton.disabled = !enabled;
+                this.$.buttonLabel.innerHTML = label;
+                this.$.spinnerLabel.innerHTML = label;
                 this.$.icon.icon = icon;
-                this.$.icon.hidden = !showIcon;
+                this.$.actionButtonAndRefreshDate.hidden = working;
+                this.$.spinnerAndLabel.hidden = !working;
+                this.$.spinner.active = working;
             },
 
             _onSelectedChanged: function()
@@ -199,10 +230,16 @@ An element that renders a single FileThis connection resource as a list item
 
             _getRefreshDateString: function formatDate(connection)
             {
-                if (this.connection == null)
+                if (this.connection === null)
                     return "";
 
                 var checkedDate = new Date(connection.checkedDate);
+
+                const checkedYear = checkedDate.getYear();
+                const year1970 = 117;
+                const hasNeverFetched = (checkedYear < year1970);
+                if (hasNeverFetched)
+                    return "";
 
                 var monthNames =
                     [
