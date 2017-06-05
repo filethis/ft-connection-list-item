@@ -210,7 +210,7 @@ An element that renders a single FileThis connection resource as a list item
                 this.$.spinner.active = working;
             },
 
-            _onSelectedChanged: function()
+            _onSelectedChanged: function(to, from)
             {
                 var interior = this.$.interior;
                 if (this.selected)
