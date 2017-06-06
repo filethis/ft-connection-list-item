@@ -1,6 +1,6 @@
 # Project configuration
 NAME=ft-connection-list-item
-VERSION=0.0.6
+VERSION=0.0.7
 LOCAL_PORT=3546
 GITHUB_USER=filethis
 BOWER_NAMESPACE=FileThis
