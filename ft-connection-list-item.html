@@ -76,6 +76,7 @@ An element that renders a single FileThis connection resource as a list item
             <div
                     id="actionButtonAndRefreshDate"
                     class="layout vertical center"
+                    hidden$="[[_working]]"
                     style="width:120px;">
 
                 <!-- Action button -->
@@ -103,6 +104,7 @@ An element that renders a single FileThis connection resource as a list item
             <div
                     id="spinnerAndLabel"
                     class="layout horizontal center"
+                    hidden$="[[!_working]]"
                     style="width:120px;">
 
                 <!-- Spinner -->
@@ -152,6 +154,11 @@ An element that renders a single FileThis connection resource as a list item
                     notify: true,
                     value: false,
                     observer: "_onSelectedChanged"
+                },
+
+                _working: {
+                    type: Boolean,
+                    value: false
                 }
 
             },
@@ -205,8 +212,7 @@ An element that renders a single FileThis connection resource as a list item
                 this.$.buttonLabel.innerHTML = label;
                 this.$.spinnerLabel.innerHTML = label;
                 this.$.icon.icon = icon;
-                this.$.actionButtonAndRefreshDate.hidden = working;
-                this.$.spinnerAndLabel.hidden = !working;
+                this._working = working;
                 this.$.spinner.active = working;
             },
 
