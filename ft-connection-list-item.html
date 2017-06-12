@@ -22,7 +22,7 @@ limitations under the License.
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../paper-spinner/paper-spinner-lite.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
-
+<link rel="import" href="../iron-icons/iron-icons.html">
 <!--
 `ft-connection-list-item`
 An element that renders a single FileThis connection resource as a list item
@@ -32,7 +32,7 @@ An element that renders a single FileThis connection resource as a list item
 
 <dom-module id="ft-connection-list-item">
 
-    <style include="iron-flex iron-flex-alignment"></style>
+    <style include="iron-flex iron-flex-alignment iron-positioning"></style>
 
     <style is="custom-style">
       paper-spinner-lite.spinner
@@ -76,7 +76,7 @@ An element that renders a single FileThis connection resource as a list item
             <div
                     id="actionButtonAndRefreshDate"
                     class="layout vertical center"
-                    hidden$="[[_working]]"
+                    hidden="[[_working]]"
                     style="width:120px;">
 
                 <!-- Action button -->
@@ -104,7 +104,7 @@ An element that renders a single FileThis connection resource as a list item
             <div
                     id="spinnerAndLabel"
                     class="layout horizontal center"
-                    hidden$="[[!_working]]"
+                    hidden="[[!_working]]"
                     style="width:120px;">
 
                 <!-- Spinner -->
@@ -189,7 +189,7 @@ An element that renders a single FileThis connection resource as a list item
                         working = true;
                         break;
                     case "uploading":
-                        label = "Downloading";
+                        label = "Retrieving";
                         icon = "refresh";
                         working = true;
                         break;

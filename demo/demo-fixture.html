@@ -19,6 +19,7 @@ limitations under the License.
 
 <!-- Imports -->
 <link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 
 <link rel="import" href="../ft-connection-list-item.html">
 
@@ -31,7 +32,7 @@ An element that renders a single FileThis connection resource as a list item
  -->
 <dom-module id="demo-fixture">
 
-    <style include="iron-flex iron-flex-alignment"></style>
+    <style include="iron-flex iron-flex-alignment iron-positioning"></style>
 
     <template>
 
@@ -101,6 +102,14 @@ An element that renders a single FileThis connection resource as a list item
 
             properties:
             {
+                mytrue: {
+                    type: Boolean,
+                    value: true
+                },
+                myfalse: {
+                    type: Boolean,
+                    value: false
+                }
             },
 
             ready: function()
