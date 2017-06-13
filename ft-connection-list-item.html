@@ -34,17 +34,23 @@ An element that renders a single FileThis connection resource as a list item
 
     <style include="iron-flex iron-flex-alignment iron-positioning"></style>
 
-    <style is="custom-style">
-      paper-spinner-lite.spinner
-      {
-          --paper-spinner-color: black;
-          --paper-spinner-stroke-width: 2px;
-          width: 17px;
-          height: 17px;
-      }
-    </style>
-
     <template>
+
+        <style>
+            :host {
+                display:block;
+            }
+        </style>
+
+        <style is="custom-style">
+          paper-spinner-lite.spinner
+          {
+              --paper-spinner-color: black;
+              --paper-spinner-stroke-width: 2px;
+              width: 17px;
+              height: 17px;
+          }
+        </style>
 
         <div
                 id="interior"
