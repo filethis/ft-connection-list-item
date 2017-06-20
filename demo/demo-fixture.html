@@ -32,9 +32,9 @@ An element that renders a single FileThis connection resource as a list item
  -->
 <dom-module id="demo-fixture">
 
-    <style include="iron-flex iron-flex-alignment iron-positioning"></style>
-
     <template>
+
+        <style include="iron-flex iron-flex-alignment iron-positioning"></style>
 
         <style>
             :host {
@@ -139,34 +139,34 @@ An element that renders a single FileThis connection resource as a list item
 
                         // Waiting
                         var connectionWaiting = Object.assign({}, connection);
-                        itemWaiting.connection = connectionWaiting;
+                        this.$.itemWaiting.connection = connectionWaiting;
 
                         // Waiting, selected
                         var connectionWaitingSelected = Object.assign({}, connection);
-                        itemWaitingSelected.connection = connectionWaitingSelected;
-                        itemWaitingSelected.selected = true;
+                        this.$.itemWaitingSelected.connection = connectionWaitingSelected;
+                        this.$.itemWaitingSelected.selected = true;
 
                         // Connecting
                         var connectionConnecting = Object.assign({}, connection);
                         connectionConnecting.state = "connecting";
-                        itemConnecting.connection = connectionConnecting;
+                        this.$.itemConnecting.connection = connectionConnecting;
 
                         // Downloading
                         var connectionDownloading = Object.assign({}, connection);
                         connectionDownloading.state = "uploading";
-                        itemDownloading.connection = connectionDownloading;
+                        this.$.itemDownloading.connection = connectionDownloading;
 
                         // Question
                         var connectionQuestion = Object.assign({}, connection);
                         connectionQuestion.state = "question";
-                        itemQuestion.connection = connectionQuestion;
+                        this.$.itemQuestion.connection = connectionQuestion;
 
                         // Error
                         var connectionError = Object.assign({}, connection);
                         connectionError.state = "error";
-                        itemError.connection = connectionError;
+                        this.$.itemError.connection = connectionError;
                     }
-                };
+                }.bind(this);
                 xmlHttpRequest.send();
             }
         });
