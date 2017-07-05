@@ -249,9 +249,9 @@ An element that renders a single FileThis connection resource as a list item
 
                 var checkedDate = new Date(connection.checkedDate);
 
-                const checkedYear = checkedDate.getYear();
-                const year1970 = 117;
-                const hasNeverFetched = (checkedYear < year1970);
+                var checkedYear = checkedDate.getYear();
+                var year1970 = 117;
+                var hasNeverFetched = (checkedYear < year1970);
                 if (hasNeverFetched)
                     return "";
 
