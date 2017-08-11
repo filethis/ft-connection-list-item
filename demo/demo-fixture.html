@@ -22,6 +22,7 @@ limitations under the License.
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 
 <link rel="import" href="../ft-connection-list-item.html">
+<link rel="import" href="./ft-connection-list-item-config.html">
 
 
 <!--
@@ -42,60 +43,87 @@ An element that renders a single FileThis connection resource as a list item
             }
         </style>
 
-        <div class="layout vertical center">
+        <div class="layout horizontal center">
 
-            <!-- Waiting -->
-            <div class="layout horizontal center">
-                <div style="width:150px; font-size:14pt" align="right">Waiting:</div>
-                <div style="width:35px;"></div>
-                <ft-connection-list-item id="itemWaiting"></ft-connection-list-item>
+            <!-- Settings -->
+            <ft-connection-list-item-config
+                    allow-manual-fetch="{{allowManualFetch}}">
+            </ft-connection-list-item-config>
+
+            <!-- Panel -->
+            <div class="layout vertical center">
+
+                <!-- Waiting -->
+                <div class="layout horizontal center">
+                    <div style="width:150px; font-size:14pt" align="right">Waiting:</div>
+                    <div style="width:35px;"></div>
+                    <ft-connection-list-item
+                            id="itemWaiting"
+                            allow-manual-fetch="[[allowManualFetch]]">
+                    </ft-connection-list-item>
+                </div>
+
+                <div style="height:25px;"></div>
+
+                <!-- Waiting, selected -->
+                <div class="layout horizontal center">
+                    <div style="width:150px; font-size:14pt" align="right">Waiting, selected:</div>
+                    <div style="width:35px;"></div>
+                    <ft-connection-list-item
+                            id="itemWaitingSelected"
+                            allow-manual-fetch="[[allowManualFetch]]">
+                    </ft-connection-list-item>
+                </div>
+
+                <div style="height:25px;"></div>
+
+                <!-- Connecting -->
+                <div class="layout horizontal center">
+                    <div style="width:150px; font-size:14pt" align="right">Connecting:</div>
+                    <div style="width:35px;"></div>
+                    <ft-connection-list-item
+                            id="itemConnecting"
+                            allow-manual-fetch="[[allowManualFetch]]">
+                    </ft-connection-list-item>
+                </div>
+
+                <div style="height:25px;"></div>
+
+                <!-- Downloading -->
+                <div class="layout horizontal center">
+                    <div style="width:150px; font-size:14pt" align="right">Downloading:</div>
+                    <div style="width:35px;"></div>
+                    <ft-connection-list-item
+                            id="itemDownloading"
+                            allow-manual-fetch="[[allowManualFetch]]">
+                    </ft-connection-list-item>
+                </div>
+
+                <div style="height:25px;"></div>
+
+                <!-- Question -->
+                <div class="layout horizontal center">
+                    <div style="width:150px; font-size:14pt" align="right">Question:</div>
+                    <div style="width:35px;"></div>
+                    <ft-connection-list-item
+                            id="itemQuestion"
+                            allow-manual-fetch="[[allowManualFetch]]">
+                    </ft-connection-list-item>
+                </div>
+
+                <div style="height:25px;"></div>
+
+                <!-- Error -->
+                <div class="layout horizontal center">
+                    <div style="width:150px; font-size:14pt" align="right">Error:</div>
+                    <div style="width:35px;"></div>
+                    <ft-connection-list-item
+                            id="itemError"
+                            allow-manual-fetch="[[allowManualFetch]]">
+                    </ft-connection-list-item>
+                </div>
             </div>
 
-            <div style="height:25px;"></div>
-
-            <!-- Waiting, selected -->
-            <div class="layout horizontal center">
-                <div style="width:150px; font-size:14pt" align="right">Waiting, selected:</div>
-                <div style="width:35px;"></div>
-                <ft-connection-list-item id="itemWaitingSelected"></ft-connection-list-item>
-            </div>
-
-            <div style="height:25px;"></div>
-
-            <!-- Connecting -->
-            <div class="layout horizontal center">
-                <div style="width:150px; font-size:14pt" align="right">Connecting:</div>
-                <div style="width:35px;"></div>
-                <ft-connection-list-item id="itemConnecting"></ft-connection-list-item>
-            </div>
-
-            <div style="height:25px;"></div>
-
-            <!-- Downloading -->
-            <div class="layout horizontal center">
-                <div style="width:150px; font-size:14pt" align="right">Downloading:</div>
-                <div style="width:35px;"></div>
-                <ft-connection-list-item id="itemDownloading"></ft-connection-list-item>
-            </div>
-
-            <div style="height:25px;"></div>
-
-            <!-- Question -->
-            <div class="layout horizontal center">
-                <div style="width:150px; font-size:14pt" align="right">Question:</div>
-                <div style="width:35px;"></div>
-                <ft-connection-list-item id="itemQuestion"></ft-connection-list-item>
-            </div>
-
-            <div style="height:25px;"></div>
-
-            <!-- Error -->
-            <div class="layout horizontal center">
-                <div style="width:150px; font-size:14pt" align="right">Error:</div>
-                <div style="width:35px;"></div>
-                <ft-connection-list-item id="itemError">
-                </ft-connection-list-item>
-            </div>
         </div>
 
     </template>
@@ -108,13 +136,10 @@ An element that renders a single FileThis connection resource as a list item
 
             properties:
             {
-                mytrue: {
+                allowManualFetch:
+                {
                     type: Boolean,
                     value: true
-                },
-                myfalse: {
-                    type: Boolean,
-                    value: false
                 }
             },
 
@@ -169,9 +194,9 @@ An element that renders a single FileThis connection resource as a list item
                 }.bind(this);
                 xmlHttpRequest.send();
             }
+
         });
 
     </script>
 
 </dom-module>
-

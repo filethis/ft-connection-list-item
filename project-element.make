@@ -34,8 +34,8 @@ eslint:  ## ESLint project files
 
 # Running -----------------------------------------------------------------------------------
 
-.PHONY: run-browser-sync
-run-browser-sync:  ## Run BrowserSync against local files. Element demos require a running Polymer server. See: https://www.browsersync.io/
+.PHONY: open
+open:  ## Run BrowserSync against local files. Element demos require a running Polymer server. See: https://www.browsersync.io/
 	@if lsof -i tcp:${LOCAL_PORT} > /dev/null; then \
 		echo Found running Polymer server; \
 	else \
@@ -48,8 +48,8 @@ run-browser-sync:  ## Run BrowserSync against local files. Element demos require
 		--port ${LOCAL_PORT} \
 		--startPath "/components/${NAME}/demo/";
 
-.PHONY: run-browser-sync-test
-run-browser-sync-test:  ## Run BrowserSync for tests
+.PHONY: open-test
+open-test:  ## Run BrowserSync for tests
 	@if lsof -i tcp:${LOCAL_PORT} > /dev/null; then \
 		echo Found running Polymer server; \
 	else \
