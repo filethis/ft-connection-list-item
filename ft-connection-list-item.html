@@ -221,7 +221,11 @@ This element displays a single FileThis connection resource, suitable for use in
                         break;
                     case "uploading":
                         showActionButton = true;
-                        label = "Retrieving";
+                        var documentCount = this.connection.documentCount;
+                        if (documentCount === 0)
+                            label = "Retrieving";
+                        else
+                            label = "Retrieved " + documentCount.toString();
                         icon = "refresh";
                         working = true;
                         break;
