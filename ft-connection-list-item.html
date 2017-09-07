@@ -83,15 +83,14 @@ This element displays a single FileThis connection resource, suitable for use in
             <div
                     id="actionButtonAndRefreshDate"
                     class="layout vertical center"
-                    hidden="[[_working]]"
-                    style="width:120px;">
+                    hidden="[[_actionButtonHidden]]"
+                    style="width:120px; ">
 
                 <!-- Action button -->
                 <paper-button
                         raised
                         id="actionButton"
                         style="width:100px; height:32px; background-color:white"
-                        hidden="[[_actionButtonHidden]]"
                         on-tap="_onActionButtonClicked">
                     <iron-icon id="icon"></iron-icon>
                     <div style="width:3px;"></div>
@@ -112,7 +111,7 @@ This element displays a single FileThis connection resource, suitable for use in
             <div
                     id="spinnerAndLabel"
                     class="layout horizontal center"
-                    hidden="[[!_working]]"
+                    hidden="[[_spinnerHidden]]"
                     style="width:120px;">
 
                 <!-- Spinner -->
@@ -176,10 +175,10 @@ This element displays a single FileThis connection resource, suitable for use in
                     value: true
                 },
 
-                /** True when the connection is in a "working" state. Makes an indeterminate progress indicator spin. */
-                _working: {
+                /** True when the the spinner is hidden. */
+                _spinnerHidden: {
                     type: Boolean,
-                    value: false
+                    value: true
                 },
 
                 /** True when the the action button is hidden. */
@@ -203,57 +202,79 @@ This element displays a single FileThis connection resource, suitable for use in
                 var showActionButton;
                 var label;
                 var icon;
-                var working;
+                var showSpinner;
                 switch (this.connection.state)
                 {
                     case "waiting":
                         showActionButton = this.allowManualFetch;
+                        showSpinner = false;
                         label = "Refresh";
                         icon = "refresh";
-                        working = false;
                         break;
+                        
                     case "created":
+                    case "manual":
                     case "connecting":
-                        showActionButton = true;
+                        showActionButton = false;
+                        showSpinner = true;
                         label = "Connecting";
                         icon = "refresh";
-                        working = true;
                         break;
+                        
                     case "uploading":
-                        showActionButton = true;
+                        showActionButton = false;
+                        showSpinner = true;
                         var documentCount = this.connection.documentCount;
                         if (documentCount === 0)
                             label = "Retrieving";
                         else
                             label = "Retrieved " + documentCount.toString();
                         icon = "refresh";
-                        working = true;
                         break;
+                        
                     case "question":
                         showActionButton = true;
+                        showSpinner = false;
                         label = "Fix It";
                         icon = "report-problem";
-                        working = false;
                         break;
+                        
+                    case "answered":
+                        showActionButton = false;
+                        showSpinner = true;
+                        label = "Answered";
+                        icon = "refresh";
+                        break;
+                        
+                    case "completed":
+                        showActionButton = false;
+                        showSpinner = true;
+                        label = "Closing";
+                        icon = "refresh";
+                        break;
+                        
                     case "error":
                         showActionButton = true;
+                        showSpinner = false;
                         label = "Fix It";
                         icon = "report-problem";
-                        working = false;
                         break;
+                        
+                    // TODO: Not right...
+                    case "incorrect":
                     default:
                         showActionButton = true;
+                        showSpinner = false;
                         label = "Refresh";
                         icon = "refresh";
-                        working = false;
                         break;
                 }
                 this._actionButtonHidden = !showActionButton;
                 this.$.buttonLabel.innerHTML = label;
                 this.$.spinnerLabel.innerHTML = label;
                 this.$.icon.icon = icon;
-                this._working = working;
-                this.$.spinner.active = working;
+                this._spinnerHidden = !showSpinner;
+                this.$.spinner.active = showSpinner;
             },
 
             _onSelectedChanged: function(to, from)
