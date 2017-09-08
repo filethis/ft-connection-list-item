@@ -79,44 +79,46 @@ This element displays a single FileThis connection resource, suitable for use in
             <!-- Spacer -->
             <div style="width:16px;"></div>
 
-            <!-- Action button and refresh date -->
+            <!-- Quiescent panel -->
             <div
-                    id="actionButtonAndRefreshDate"
+                    id="quiescentPanel"
                     class="layout vertical center"
-                    hidden="[[_actionButtonHidden]]"
+                    hidden="[[_quiescentPanelHidden]]"
                     style="width:120px; ">
 
-                <!-- Action button -->
+                <!-- Button -->
                 <paper-button
                         raised
-                        id="actionButton"
+                        id="quiescentButton"
                         style="width:100px; height:32px; background-color:white"
-                        on-tap="_onActionButtonClicked">
-                    <iron-icon id="icon"></iron-icon>
+                        hidden="[[_quiescentButtonHidden]]"
+                        on-tap="_onQuiescentButtonTapped">
+                    <iron-icon id="quiescentButtonIcon"></iron-icon>
                     <div style="width:3px;"></div>
                     <iron-label
-                            id="buttonLabel"
+                            id="quiescentButtonLabel"
                             style="font-family:Arial; font-size:12px;"></iron-label>
                 </paper-button>
 
-                <!-- Refresh date -->
+                <!-- Subtext -->
                 <iron-label
-                        id="refreshDate"
+                        id="quiescentSubtext"
+                        hidden="[[_quiescentSubtextHidden]]"
                         style="margin-top:6px; font-family:Arial; font-size:small; font-style:italic;">
                     [[_getRefreshDateString(connection)]]
                 </iron-label>
             </div>
 
-            <!-- Spinner and label -->
+            <!-- Active panel -->
             <div
-                    id="spinnerAndLabel"
+                    id="activePanel"
                     class="layout horizontal center"
-                    hidden="[[_spinnerHidden]]"
+                    hidden="[[_activePanelHidden]]"
                     style="width:120px;">
 
                 <!-- Spinner -->
                 <paper-spinner-lite
-                        id="spinner"
+                        id="activeSpinner"
                         class="spinner">
                 </paper-spinner-lite>
 
@@ -124,7 +126,7 @@ This element displays a single FileThis connection resource, suitable for use in
 
                 <!-- Label -->
                 <iron-label
-                        id="spinnerLabel"
+                        id="activeSpinnerLabel"
                         style="font-family:Arial; font-size:12px; text-transform:uppercase; padding-top:2px">
                 </iron-label>
             </div>
@@ -175,14 +177,26 @@ This element displays a single FileThis connection resource, suitable for use in
                     value: true
                 },
 
-                /** True when the the spinner is hidden. */
-                _spinnerHidden: {
+                /** True when the quiescent panel is hidden. */
+                _quiescentPanelHidden: {
+                    type: Boolean,
+                    value: false
+                },
+
+                /** True when the active panel is hidden. */
+                _activePanelHidden: {
                     type: Boolean,
                     value: true
                 },
 
-                /** True when the the action button is hidden. */
-                _actionButtonHidden: {
+                /** True when the quiescent button is hidden. */
+                _quiescentButtonHidden: {
+                    type: Boolean,
+                    value: false
+                },
+
+                /** True when the quiescent subtext is hidden. */
+                _quiescentSubtextHidden: {
                     type: Boolean,
                     value: false
                 }
@@ -191,90 +205,85 @@ This element displays a single FileThis connection resource, suitable for use in
 
             observers:
             [
-                "_onConnectionStateChanged(connection.state, allowManualFetch)"
+                "_onConnectionChanged(connection.state, connection.documentCount, allowManualFetch)"
             ],
 
-            _onConnectionStateChanged: function(state)
+            _onConnectionChanged: function(state)
             {
                 if (this.connection === null)
                     return;
 
-                var showActionButton;
+                var isActive;
                 var label;
-                var icon;
-                var showSpinner;
+                var showQuiescentButton = false;
+                var showQuiescentSubtext = false;
+                var quiescentButtonIcon = "refresh";
+
                 switch (this.connection.state)
                 {
                     case "waiting":
-                        showActionButton = this.allowManualFetch;
-                        showSpinner = false;
+                        isActive = false;
                         label = "Refresh";
-                        icon = "refresh";
+                        showQuiescentButton = this.allowManualFetch;
+                        showQuiescentSubtext = true;
                         break;
                         
                     case "created":
                     case "manual":
                     case "connecting":
-                        showActionButton = false;
-                        showSpinner = true;
+                        isActive = true;
                         label = "Connecting";
-                        icon = "refresh";
                         break;
                         
                     case "uploading":
-                        showActionButton = false;
-                        showSpinner = true;
+                        isActive = true;
                         var documentCount = this.connection.documentCount;
                         if (documentCount === 0)
                             label = "Retrieving";
                         else
                             label = "Retrieved " + documentCount.toString();
-                        icon = "refresh";
                         break;
                         
                     case "question":
-                        showActionButton = true;
-                        showSpinner = false;
+                        isActive = false;
                         label = "Fix It";
-                        icon = "report-problem";
+                        showQuiescentButton = true;
+                        quiescentButtonIcon = "report-problem";
                         break;
                         
                     case "answered":
-                        showActionButton = false;
-                        showSpinner = true;
+                        isActivel = true;
                         label = "Answered";
-                        icon = "refresh";
                         break;
                         
                     case "completed":
-                        showActionButton = false;
-                        showSpinner = true;
+                        isActive = true;
                         label = "Closing";
-                        icon = "refresh";
                         break;
                         
                     case "error":
-                        showActionButton = true;
-                        showSpinner = false;
+                        isActive = false;
                         label = "Fix It";
-                        icon = "report-problem";
+                        showQuiescentButton = true;
+                        quiescentButtonIcon = "report-problem";
                         break;
                         
-                    // TODO: Not right...
                     case "incorrect":
                     default:
-                        showActionButton = true;
-                        showSpinner = false;
+                        isActive = true;
                         label = "Refresh";
-                        icon = "refresh";
                         break;
                 }
-                this._actionButtonHidden = !showActionButton;
-                this.$.buttonLabel.innerHTML = label;
-                this.$.spinnerLabel.innerHTML = label;
-                this.$.icon.icon = icon;
-                this._spinnerHidden = !showSpinner;
-                this.$.spinner.active = showSpinner;
+
+                this._activePanelHidden = !isActive;
+                this.$.activeSpinnerLabel.innerHTML = label;
+                this.$.activeSpinner.active = isActive;
+
+                this._quiescentPanelHidden = isActive;
+                this._quiescentButtonHidden = !showQuiescentButton;
+                this._quiescentSubtextHidden = !showQuiescentSubtext;
+                this.$.quiescentButtonLabel.innerHTML = label;
+                this.$.quiescentButtonIcon.icon = quiescentButtonIcon;
             },
 
             _onSelectedChanged: function(to, from)
@@ -286,7 +295,7 @@ This element displays a single FileThis connection resource, suitable for use in
                     this.style.backgroundColor = "#FFFFFF";
             },
 
-            _onActionButtonClicked: function(event, detail)
+            _onQuiescentButtonTapped: function(event, detail)
             {
                 // TODO: The following is not preventing toggle of the selection...
                 event.stopPropagation(); // So that we don't toggle the item selection when the button is clicked
