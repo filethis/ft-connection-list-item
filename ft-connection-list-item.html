@@ -23,6 +23,7 @@ limitations under the License.
 <link rel="import" href="../paper-spinner/paper-spinner-lite.html">
 <link rel="import" href="../polymer/polymer.html">
 
+
 <!--
 `<ft-connection-list-item>`
 
@@ -52,24 +53,30 @@ This element displays a single FileThis connection resource, suitable for use in
           }
         </style>
 
+        <!-- Root -->
+        <!--<div-->
+                <!--id="root"-->
+                <!--style="width:100%; height:100%; padding-left:16px; padding-right:16px;">-->
         <div
-                id="interior"
-                class="layout horizontal center"
-                style="width:400px; height:70px; padding-left:16px; padding-right:16px;">
+                id="root"
+                style="width:400px; height:70px;">
 
             <!-- Name -->
             <iron-label
-                    style="width:165px; font-family:Arial; font-size:15px; ">
+                    id="name"
+                    style="position:absolute; font-family:Arial; font-size:15px; ">
                 [[connection.name]]
             </iron-label>
 
             <!-- Spacer -->
-            <div class="flex"></div>
-            <div style="width:25px;"></div>
+            <!--<div class="flex"></div>-->
+            <!--<div style="width:25px;"></div>-->
 
             <!-- Logo -->
-            <div class="layout horizontal center center-justified"
-                 style="width:102px; height:72px;">
+            <div
+                    id="logo"
+                    class="layout horizontal center center-justified"
+                    style="position:absolute; ">
                 <img
                         style="width:auto; max-width:100%;"
                         src="[[connection.logoUrl]]">
@@ -77,14 +84,14 @@ This element displays a single FileThis connection resource, suitable for use in
             </div>
 
             <!-- Spacer -->
-            <div style="width:16px;"></div>
+            <!--<div style="width:16px;"></div>-->
 
             <!-- Quiescent panel -->
             <div
                     id="quiescentPanel"
                     class="layout vertical center"
                     hidden="[[_quiescentPanelHidden]]"
-                    style="width:120px; ">
+                    style="position:absolute; ">
 
                 <!-- Button -->
                 <paper-button
@@ -114,7 +121,7 @@ This element displays a single FileThis connection resource, suitable for use in
                     id="activePanel"
                     class="layout horizontal center"
                     hidden="[[_activePanelHidden]]"
-                    style="width:120px;">
+                    style="position:absolute; ">
 
                 <!-- Spinner -->
                 <paper-spinner-lite
@@ -140,6 +147,15 @@ This element displays a single FileThis connection resource, suitable for use in
 
             is: 'ft-connection-list-item',
 
+            listeners:
+            {
+                'iron-resize': '_onIronResize'
+            },
+
+            behaviors: [
+                Polymer.IronResizableBehavior
+            ],
+
             /**
              * Fired when the the action button is clicked.
              * The event detail argument is the item's connection resource.
@@ -147,6 +163,11 @@ This element displays a single FileThis connection resource, suitable for use in
              * @event action-button-clicked
              * @param {Object} detail The selected connection.
              */
+
+            observers:
+            [
+                "_onConnectionChanged(connection.state, connection.documentCount, allowManualFetch)"
+            ],
 
             properties: {
 
@@ -177,16 +198,16 @@ This element displays a single FileThis connection resource, suitable for use in
                     value: true
                 },
 
-                /** True when the quiescent panel is hidden. */
-                _quiescentPanelHidden: {
-                    type: Boolean,
-                    value: false
-                },
-
                 /** True when the active panel is hidden. */
                 _activePanelHidden: {
                     type: Boolean,
                     value: true
+                },
+
+                /** True when the quiescent panel is hidden. */
+                _quiescentPanelHidden: {
+                    type: Boolean,
+                    value: false
                 },
 
                 /** True when the quiescent button is hidden. */
@@ -203,10 +224,131 @@ This element displays a single FileThis connection resource, suitable for use in
 
             },
 
-            observers:
-            [
-                "_onConnectionChanged(connection.state, connection.documentCount, allowManualFetch)"
-            ],
+            _onIronResize: function(event)
+            {
+                var root = this.$.root;
+                var availableWidth = root.offsetWidth;
+                var availableHeight = root.offsetHeight;
+
+                var width;
+
+                // Left padding
+                var left = 16;
+
+                // Name
+                var name = this.$.name;
+                this._setElementPosition(name, left, 0);
+                width = 200;
+                this._setElementSize(name, width, availableHeight);
+                left += width;
+
+                // Logo
+                var logo = this.$.logo;
+                this._setElementPosition(logo, left, 0);
+                width = 80;
+                this._setElementSize(logo, width, availableHeight);
+                left += width;
+
+                // Quiescent panel
+                var quiescentPanel = this.$.quiescentPanel;
+                this._setElementPosition(quiescentPanel, left, 0);
+                width = 200;
+                this._setElementSize(quiescentPanel, width, availableHeight);
+
+                // Active panel
+                var activePanel = this.$.activePanel;
+                this._setElementPosition(activePanel, left, 0);
+                width = 200;
+                this._setElementSize(activePanel, width, availableHeight);
+            },
+
+            // TODO: Make this a mixin/behavior?
+
+            _getElementLeft: function(element)
+            {
+                return element.offsetLeft;
+            },
+
+            _setElementLeft: function(element, left)
+            {
+                element.style.left = this._coordinateToStyle(left);
+            },
+
+            _getElementTop: function(element)
+            {
+                return element.offsetTop;
+            },
+
+            _setElementTop: function(element, top)
+            {
+                element.style.top = this._coordinateToStyle(top);
+            },
+
+            _getElementRight: function(element)
+            {
+                return element.offsetRight;
+            },
+
+            _setElementRight: function(element, right)
+            {
+                var width = right - this._getElementLeft();
+                this._setElementWidth(width);
+            },
+
+            _getElementBottom: function(element)
+            {
+                return element.offsetBottom;
+            },
+
+            _setElementBottom: function(element, bottom)
+            {
+                var height = bottom - this._getElementTop();
+                this._setElementHeight(height);
+            },
+
+            _getElementWidth: function(element)
+            {
+                return element.offsetWidth;
+            },
+
+            _setElementWidth: function(element, width)
+            {
+                if (width < 0)
+                    width = 0;
+                element.style.width = this._coordinateToStyle(width);
+            },
+
+            _getElementHeight: function(element)
+            {
+                return element.offsetHeight;
+            },
+
+            _setElementHeight: function(element, height)
+            {
+                if (height < 0)
+                    height = 0;
+                element.style.height = this._coordinateToStyle(height);
+            },
+
+            _setElementPosition: function(element, left, top)
+            {
+                this._setElementLeft(element, left);
+                this._setElementTop(element, top);
+            },
+            
+            _setElementSize: function(element, width, height)
+            {
+                this._setElementWidth(element, width);
+                this._setElementHeight(element, height);
+            },
+
+            _coordinateToStyle: function(coordinate)
+            {
+                if (coordinate === 0)
+                    return "0";
+                else
+                    return coordinate.toString() + "px";
+            },
 
             _onConnectionChanged: function(state)
             {
@@ -288,7 +430,7 @@ This element displays a single FileThis connection resource, suitable for use in
 
             _onSelectedChanged: function(to, from)
             {
-                var interior = this.$.interior;
+                var top = this.$.top;
                 if (this.selected)
                     this.style.backgroundColor = "#F6F6F6";
                 else
