@@ -54,62 +54,62 @@ An element that renders a single FileThis connection resource as a list item
             </ft-connection-list-item-config>
 
             <!-- Panel -->
-            <div slot="element"
-                 class="layout vertical center" style="width:100%; height:100%; ">
+            <div
+                    slot="element"
+                    class="layout vertical scroll"
+                    style="width:100%; height:100%; ">
 
                 <!-- Waiting -->
                 <ft-connection-list-item
                         id="itemWaiting"
-                        style="width:100%; "
                         allow-manual-fetch="[[allowManualFetch]]">
                 </ft-connection-list-item>
 
                 <!-- Waiting, selected -->
                 <ft-connection-list-item
                         id="itemWaitingSelected"
-                        style="width:100%; "
                         allow-manual-fetch="[[allowManualFetch]]">
                 </ft-connection-list-item>
 
                 <!-- Connecting -->
                 <ft-connection-list-item
                         id="itemConnecting"
-                        style="width:100%; "
                         allow-manual-fetch="[[allowManualFetch]]">
                 </ft-connection-list-item>
 
                 <!-- Downloading -->
                 <ft-connection-list-item
                         id="itemDownloading"
-                        style="width:100%; "
                         allow-manual-fetch="[[allowManualFetch]]">
                 </ft-connection-list-item>
 
                 <!-- Downloading, with document -->
                 <ft-connection-list-item
                         id="itemDownloadingWithDocument"
-                        style="width:100%; "
                         allow-manual-fetch="[[allowManualFetch]]">
                 </ft-connection-list-item>
 
                 <!-- Question -->
                 <ft-connection-list-item
                         id="itemQuestion"
-                        style="width:100%; "
                         allow-manual-fetch="[[allowManualFetch]]">
                 </ft-connection-list-item>
 
                 <!-- Error -->
                 <ft-connection-list-item
                         id="itemError"
-                        style="width:100%; "
                         allow-manual-fetch="[[allowManualFetch]]">
                 </ft-connection-list-item>
 
                 <!-- Completed -->
                 <ft-connection-list-item
                         id="itemCompleted"
-                        style="width:100%; "
+                        allow-manual-fetch="[[allowManualFetch]]">
+                </ft-connection-list-item>
+
+                <!-- Foo -->
+                <ft-connection-list-item
+                        id="itemFoo"
                         allow-manual-fetch="[[allowManualFetch]]">
                 </ft-connection-list-item>
 
@@ -193,6 +193,11 @@ An element that renders a single FileThis connection resource as a list item
                         var connectionCompleted = Object.assign({}, connection);
                         connectionCompleted.state = "completed";
                         this.$.itemCompleted.connection = connectionCompleted;
+
+                        // Foo
+                        var fooCompleted = Object.assign({}, connection);
+                        connectionCompleted.state = "completed";
+                        this.$.itemFoo.connection = fooCompleted;
                     }
                 }.bind(this);
                 xmlHttpRequest.send();
