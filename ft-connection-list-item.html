@@ -349,7 +349,7 @@ This element displays a single FileThis connection resource, suitable for use in
                 event.stopPropagation(); // So that we don't toggle the item selection when the button is clicked
                 event.preventDefault();
 
-                this.fire('action-button-clicked', this.connection);
+                this.fire('action-command', this.connection);
             },
 
             _getRefreshDateString: function formatDate(connection)
