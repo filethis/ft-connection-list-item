@@ -377,7 +377,22 @@ This element displays a single FileThis connection resource, suitable for use in
                 var monthIndex = checkedDate.getMonth();
 
                 return "Refreshed " + monthNames[monthIndex] + ' ' + day;
-            }
+            },
+
+            generateSettings: function()
+            {
+                // NOTE: Must keep the default values here up to date with properties
+                var config = {};
+                if (this.allowManualFetch !== true)
+                    config.allowManualFetch = this.allowManualFetch;
+                return config;
+            },
+
+            applySettings: function(settings)
+            {
+                if (settings.allowManualFetch)
+                    this.allowManualFetch = settings.allowManualFetch;
+            },
 
         });
     </script>

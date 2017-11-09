@@ -28,7 +28,7 @@ This element defines a source grid example that allows experimentation with conf
 
 @demo
  -->
-<dom-module id="ft-connection-list-item-config">
+<dom-module id="ft-connection-list-item-settings">
 
     <template>
 
@@ -38,6 +38,8 @@ This element defines a source grid example that allows experimentation with conf
             :host {
                 display:block;
                 overflow:hidden;
+                @apply --layout-vertical;
+                @apply --ft-connection-list-item-settings;
             }
         </style>
 
@@ -50,12 +52,9 @@ This element defines a source grid example that allows experimentation with conf
         </style>
 
         <!-- Settings -->
-        <div class="layout vertical center" style="width:300px">
-
-            <paper-checkbox checked="{{allowManualFetch}}">
-                Allow Manual Fetch
-            </paper-checkbox>
-        </div>
+        <paper-checkbox checked="{{allowManualFetch}}">
+            Allow Manual Fetch
+        </paper-checkbox>
 
     </template>
 
@@ -63,7 +62,7 @@ This element defines a source grid example that allows experimentation with conf
 
         Polymer
         ({
-            is: 'ft-connection-list-item-config',
+            is: 'ft-connection-list-item-settings',
 
             properties:
             {
