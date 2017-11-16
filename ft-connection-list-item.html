@@ -14,6 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
+<link rel="import" href="../ft-settings/ft-settings-applier-behavior.html">
+<link rel="import" href="../ft-settings/ft-settings-publisher-behavior.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
@@ -151,7 +153,9 @@ This element displays a single FileThis connection resource, suitable for use in
             },
 
             behaviors: [
-                Polymer.IronResizableBehavior
+                Polymer.IronResizableBehavior,
+                FileThis.SettingsPublisherBehavior,
+                FileThis.SettingsApplierBehavior,
             ],
 
             /**
@@ -164,7 +168,8 @@ This element displays a single FileThis connection resource, suitable for use in
 
             observers:
             [
-                "_onConnectionChanged(connection.state, connection.documentCount, allowManualFetch)"
+                "_onConnectionChanged(connection.state, connection.documentCount, allowManualFetch)",
+                "_onSettingsPropertyChanged(allowManualFetch)",
             ],
 
             properties: {
@@ -220,6 +225,12 @@ This element displays a single FileThis connection resource, suitable for use in
                     value: false
                 }
 
+            },
+
+            ready: function()
+            {
+                var propertyNames = [ "allowManualFetch" ];
+                this.settingsPublish("ft-connection-list-item", propertyNames);
             },
 
             _onIronResize: function(event)
@@ -379,19 +390,23 @@ This element displays a single FileThis connection resource, suitable for use in
                 return "Refreshed " + monthNames[monthIndex] + ' ' + day;
             },
 
-            generateSettings: function()
+            _onSettingsPropertyChanged: function()
             {
-                // NOTE: Must keep the default values here up to date with properties
-                var config = {};
-                if (this.allowManualFetch !== true)
-                    config.allowManualFetch = this.allowManualFetch;
-                return config;
+                this.updateSettings();
             },
 
-            applySettings: function(settings)
+            _old: function()
             {
-                if (settings.allowManualFetch)
-                    this.allowManualFetch = settings.allowManualFetch;
+                // Update the settings
+                this.updateSettings();
+
+                // Update the code
+//                var code =
+//                    "<{{name}}\n" +
+//                    "    allow-manual-fetch='{{allowManualFetch}}'\n" +
+//                    "</{{name}}>";
+//                code = code.replace(/{{allowManualFetch}}/g, this.allowManualFetch);
+//                this.code = code;
             },
 
         });
