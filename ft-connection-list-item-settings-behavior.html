@@ -58,29 +58,38 @@ limitations under the License.
             this.fire("internal-settings-changed");
         },
 
-        generateSettingsImport: function()
+        generateImports: function()
         {
-            return "import ";
+            if (!this._hasSettings())
+                return "";
+
+            var imports = "<link rel=\"import\" href=\"../bower_components/ft-connection-list-item/ft-connection-list-item-settings.html\">\n";
+            return imports;
         },
 
         generateSettings: function()
         {
-            var attributes = "";
-            if (this.allowManualFetch !== true)
-                attributes += "\n    allowManualFetch=false";
-
-            if (attributes.length === 0)
+            if (!this._hasSettings())
                 return "";
 
-            var settings = "";
+            var attributes = "";
+            if (this.allowManualFetch !== true)
+                attributes += "\n    allow-manual-fetch=false";
 
-            settings += "\n<link rel=\"import\" href=\"../bower_components/ft-connection-list-item/ft-connection-list-item-settings.html\">\n";
+            var settings = "";
 
             settings += "\n<ft-connection-list-item-settings ";
             settings += attributes;
             settings += ">\n</ft-connection-list-item-settings>\n";
 
             return settings;
+        },
+
+        _hasSettings: function()
+        {
+            if (this.allowManualFetch !== true)
+                return true;
+            return false;
         },
     }
 
