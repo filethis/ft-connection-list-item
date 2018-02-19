@@ -14,8 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-<link rel="import" href="../ft-settings/ft-settings-applier-behavior.html">
-<link rel="import" href="../ft-settings/ft-settings-publisher-behavior.html">
+<link rel="import" href="../ft-global-variable/ft-global-variable.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
@@ -24,6 +23,7 @@ limitations under the License.
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../paper-spinner/paper-spinner-lite.html">
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="ft-connection-list-item-settings-behavior.html">
 
 
 <!--
@@ -58,6 +58,9 @@ This element displays a single FileThis connection resource, suitable for use in
               height: 17px;
           }
         </style>
+
+        <!-- Settings -->
+        <ft-global-variable name="ft-connection-list-item-allow-manual-fetch" value="{{allowManualFetch}}"></ft-global-variable>
 
         <!-- Root -->
         <div
@@ -140,6 +143,9 @@ This element displays a single FileThis connection resource, suitable for use in
 
         </div>
 
+        <!-- Settings -->
+        <ft-global-variable name="ft-connection-list-item-allow-manual-fetch" value="{{allowManualFetch}}"></ft-global-variable>
+
     </template>
 
     <script>
@@ -153,9 +159,8 @@ This element displays a single FileThis connection resource, suitable for use in
             },
 
             behaviors: [
+                FileThis.ConnectionListItemSettingsBehavior,
                 Polymer.IronResizableBehavior,
-                FileThis.SettingsPublisherBehavior,
-                FileThis.SettingsApplierBehavior,
             ],
 
             /**
@@ -169,7 +174,6 @@ This element displays a single FileThis connection resource, suitable for use in
             observers:
             [
                 "_onConnectionChanged(connection.state, connection.documentCount, allowManualFetch)",
-                "_onSettingsPropertyChanged(allowManualFetch)",
             ],
 
             properties: {
@@ -187,18 +191,6 @@ This element displays a single FileThis connection resource, suitable for use in
                     notify: true,
                     value: false,
                     observer: "_onSelectedChanged"
-                },
-
-                /**
-                 * Whether to allow users to trigger document fetching "manually" by clicking a button in the connection item, or not.
-                 *
-                 * Note that you can provide the strings "true" and "false" as attribute values.
-                 *
-                 * @type {boolean}
-                 */
-                allowManualFetch: {
-                    type: Object,
-                    value: true
                 },
 
                 /** True when the active panel is hidden. */
@@ -225,12 +217,6 @@ This element displays a single FileThis connection resource, suitable for use in
                     value: false
                 }
 
-            },
-
-            ready: function()
-            {
-                var propertyNames = [ "allowManualFetch" ];
-                this.settingsPublish("ft-connection-list-item", propertyNames);
             },
 
             _onIronResize: function(event)
@@ -388,25 +374,6 @@ This element displays a single FileThis connection resource, suitable for use in
                 var monthIndex = checkedDate.getMonth();
 
                 return "Refreshed " + monthNames[monthIndex] + ' ' + day;
-            },
-
-            _onSettingsPropertyChanged: function()
-            {
-                this.updateSettings();
-            },
-
-            _old: function()
-            {
-                // Update the settings
-                this.updateSettings();
-
-                // Update the code
-//                var code =
-//                    "<{{name}}\n" +
-//                    "    allow-manual-fetch='{{allowManualFetch}}'\n" +
-//                    "</{{name}}>";
-//                code = code.replace(/{{allowManualFetch}}/g, this.allowManualFetch);
-//                this.code = code;
             },
 
         });

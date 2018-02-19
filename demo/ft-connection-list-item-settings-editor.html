@@ -16,11 +16,12 @@ limitations under the License.
 
 
 <!-- Imports -->
-<link rel="import" href="../../ft-settings/ft-settings-publisher-behavior.html">
+<link rel="import" href="../../ft-global-variable/ft-global-variable.html">
 <link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../iron-input/iron-input.html">
 <link rel="import" href="../../paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../ft-connection-list-item-settings-behavior.html">
 
 
 <!--
@@ -53,6 +54,9 @@ This element defines a source grid example that allows experimentation with conf
         </style>
 
         <!-- Settings -->
+        <ft-global-variable name="ft-connection-list-item-allow-manual-fetch" value="{{allowManualFetch}}"></ft-global-variable>
+
+        <!-- Settings -->
         <paper-checkbox checked="{{allowManualFetch}}">
             Allow Manual Fetch
         </paper-checkbox>
@@ -66,34 +70,8 @@ This element defines a source grid example that allows experimentation with conf
             is: 'ft-connection-list-item-settings-editor',
 
             behaviors: [
-                FileThis.SettingsPublisherBehavior
+                FileThis.ConnectionListItemSettingsBehavior,
             ],
-
-            observers:
-            [
-                "_onSettingsPropertyChanged(allowManualFetch)",
-            ],
-
-            properties:
-            {
-                allowManualFetch:
-                {
-                    type: Boolean,
-                    notify: true,
-                    value: true
-                }
-            },
-
-            ready: function()
-            {
-                var propertyNames = [ "allowManualFetch" ];
-                this.settingsPublish("ft-connection-list-item-settings-editor", propertyNames);
-            },
-
-            _onSettingsPropertyChanged: function()
-            {
-                this.updateSettings();
-            },
 
         });
 

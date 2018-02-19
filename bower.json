@@ -3,8 +3,8 @@
   "description": "An element that renders a single FileThis connection resource as a list item",
   "main": "ft-connection-list-item.html",
   "dependencies": {
-    "ft-element-demo": "filethis/ft-element-demo#^0.0.9",
-    "ft-settings": "filethis/ft-settings#^0.0.1",
+    "ft-element-demo": "filethis/ft-element-demo#^0.0.10",
+    "ft-global-variable": "filethis/ft-global-variable#^0.0.2",
     "iron-icon": "PolymerElements/iron-icon#1 - 2",
     "iron-label": "PolymerElements/iron-label#1 - 2",
     "paper-checkbox": "PolymerElements/paper-checkbox#1 - 2",
