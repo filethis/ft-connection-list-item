@@ -41,22 +41,66 @@ This element displays a single FileThis connection resource, suitable for use in
 
         <style>
             :host {
-                display:block;
-                overflow:hidden;
-                height:70px;
+                display: block;
+                overflow: hidden;
+                height: 70px;
                 @apply --layout-vertical;
                 @apply --ft-connection-list-item;
+            }
+            .root {
+                @apply --ft-connection-list-item-root;
+            }
+            .name {
+                width: 150px;
+                font-family: Arial;
+                font-size: 15px;
+                @apply --ft-connection-list-item-name;
+            }
+            .logo {
+                @apply --ft-connection-list-item-logo;
+            }
+            .quiescent-panel {
+                @apply --ft-connection-list-item-quiescent-panel;
+            }
+            .quiescent-button {
+                width: 100px;
+                height: 32px;
+                background-color: white;
+                @apply --ft-connection-list-item-quiescent-button;
+            }
+            .quiescent-button-label {
+                font-family: Arial;
+                font-size: 12px;
+                @apply --ft-connection-list-item-quiescent-button-label;
+            }
+            .quiescent-subtext {
+                margin-top: 6px;
+                font-family: Arial;
+                font-size: small;
+                font-style: italic;
+                @apply --ft-connection-list-item-quiescent-subtext;
+            }
+            .active-panel {
+                @apply --ft-connection-list-item-active-panel;
+            }
+            .active-spinner-label {
+                font-family: Arial;
+                font-size: 12px;
+                text-transform: uppercase;
+                padding-top: 2px;
+                @apply --ft-connection-list-item-active-spinner-label;
+            }
             }
         </style>
 
         <style is="custom-style">
-          paper-spinner-lite.spinner
-          {
-              --paper-spinner-color: black;
-              --paper-spinner-stroke-width: 2px;
-              width: 17px;
-              height: 17px;
-          }
+            paper-spinner-lite.spinner
+            {
+                --paper-spinner-color: black;
+                --paper-spinner-stroke-width: 2px;
+                width: 17px;
+                height: 17px;
+            }
         </style>
 
         <!-- Settings -->
@@ -64,13 +108,11 @@ This element displays a single FileThis connection resource, suitable for use in
 
         <!-- Root -->
         <div
-                id="root"
-                class="flex layout horizontal center">
-
+            id="root"
+            class="root flex layout horizontal center"
+        >
             <!-- Name -->
-            <iron-label
-                    id="name"
-                    style="width:150px; font-family:Arial; font-size:15px; ">
+            <iron-label id="name" class="name" >
                 [[connection.name]]
             </iron-label>
 
@@ -79,11 +121,13 @@ This element displays a single FileThis connection resource, suitable for use in
 
             <!-- Logo -->
             <div
-                    id="logo"
-                    class="layout horizontal center center-justified">
+                id="logo"
+                class="logo layout horizontal center center-justified"
+            >
                 <img
-                        style="width:auto; max-width:100%;"
-                        src="[[connection.logoUrl]]">
+                    style="width:auto; max-width:100%;"
+                    src="[[connection.logoUrl]]"
+                >
                 </img>
             </div>
 
@@ -93,51 +137,57 @@ This element displays a single FileThis connection resource, suitable for use in
 
             <!-- Quiescent panel -->
             <div
-                    id="quiescentPanel"
-                    class="layout vertical center"
-                    hidden="[[_quiescentPanelHidden]]">
-
+                id="quiescentPanel"
+                class="quiescent-panel layout vertical center"
+                hidden="[[_quiescentPanelHidden]]"
+            >
                 <!-- Button -->
                 <paper-button
-                        raised
-                        id="quiescentButton"
-                        style="width:100px; height:32px; background-color:white"
-                        hidden="[[_quiescentButtonHidden]]"
-                        on-tap="_onQuiescentButtonTapped">
+                    raised
+                    id="quiescentButton"
+                    class="quiescent-button"
+                    hidden="[[_quiescentButtonHidden]]"
+                    on-tap="_onQuiescentButtonTapped"
+                >
                     <iron-icon id="quiescentButtonIcon"></iron-icon>
                     <div style="width:3px;"></div>
                     <iron-label
-                            id="quiescentButtonLabel"
-                            style="font-family:Arial; font-size:12px;"></iron-label>
+                        id="quiescentButtonLabel"
+                        class="quiescent-button-label"
+                    >
+                    </iron-label>
                 </paper-button>
 
                 <!-- Subtext -->
                 <iron-label
-                        id="quiescentSubtext"
-                        hidden="[[_quiescentSubtextHidden]]"
-                        style="margin-top:6px; font-family:Arial; font-size:small; font-style:italic;">
+                    id="quiescentSubtext"
+                    class="quiescent-subtext"
+                    hidden="[[_quiescentSubtextHidden]]"
+                >
                     [[_getRefreshDateString(connection)]]
                 </iron-label>
             </div>
 
             <!-- Active panel -->
             <div
-                    id="activePanel"
-                    class="layout horizontal center"
-                    hidden="[[_activePanelHidden]]">
-
+                id="activePanel"
+                class="active-panel layout horizontal center"
+                hidden="[[_activePanelHidden]]"
+            >
                 <!-- Spinner -->
                 <paper-spinner-lite
-                        id="activeSpinner"
-                        class="spinner">
+                    id="activeSpinner"
+                    class="spinner"
+                >
                 </paper-spinner-lite>
 
                 <div style="width:6px;"></div>
 
                 <!-- Label -->
                 <iron-label
-                        id="activeSpinnerLabel"
-                        style="font-family:Arial; font-size:12px; text-transform:uppercase; padding-top:2px">
+                    id="activeSpinnerLabel"
+                    class="active-spinner-label"
+                >
                 </iron-label>
             </div>
 
