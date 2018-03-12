@@ -52,7 +52,7 @@ This element displays a single FileThis connection resource, suitable for use in
             }
             .name {
                 width: 150px;
-                font-family: Arial;
+                font-family: Arial, Helvetica, sans-serif;
                 font-size: 15px;
                 @apply --ft-connection-list-item-name;
             }
@@ -69,13 +69,13 @@ This element displays a single FileThis connection resource, suitable for use in
                 @apply --ft-connection-list-item-quiescent-button;
             }
             .quiescent-button-label {
-                font-family: Arial;
+                font-family: Arial, Helvetica, sans-serif;
                 font-size: 12px;
                 @apply --ft-connection-list-item-quiescent-button-label;
             }
             .quiescent-subtext {
                 margin-top: 6px;
-                font-family: Arial;
+                font-family: Arial, Helvetica, sans-serif;
                 font-size: small;
                 font-style: italic;
                 @apply --ft-connection-list-item-quiescent-subtext;
@@ -83,13 +83,15 @@ This element displays a single FileThis connection resource, suitable for use in
             .active-panel {
                 @apply --ft-connection-list-item-active-panel;
             }
+            .active-spinner {
+                @apply --ft-connection-list-item-active-spinner;
+            }
             .active-spinner-label {
-                font-family: Arial;
+                font-family: Arial, Helvetica, sans-serif;
                 font-size: 12px;
                 text-transform: uppercase;
                 padding-top: 2px;
                 @apply --ft-connection-list-item-active-spinner-label;
-            }
             }
         </style>
 
@@ -177,7 +179,7 @@ This element displays a single FileThis connection resource, suitable for use in
                 <!-- Spinner -->
                 <paper-spinner-lite
                     id="activeSpinner"
-                    class="spinner"
+                    class="active-spinner"
                 >
                 </paper-spinner-lite>
 
