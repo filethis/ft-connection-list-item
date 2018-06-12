@@ -47,46 +47,46 @@ This element displays a single FileThis connection resource, suitable for use in
                 @apply --layout-vertical;
                 @apply --ft-connection-list-item;
             }
-            .root {
+            #root {
                 @apply --ft-connection-list-item-root;
             }
-            .name {
+            #name {
                 width: 150px;
                 font-family: Arial, Helvetica, sans-serif;
                 font-size: 15px;
                 @apply --ft-connection-list-item-name;
             }
-            .logo {
+            #logo {
                 @apply --ft-connection-list-item-logo;
             }
-            .quiescent-panel {
+            #quiescentPanel {
                 @apply --ft-connection-list-item-quiescent-panel;
             }
-            .quiescent-button {
+            #quiescentButton {
                 width: 100px;
                 height: 32px;
                 background-color: white;
                 @apply --ft-connection-list-item-quiescent-button;
             }
-            .quiescent-button-label {
+            #quiescentButtonLabel {
                 font-family: Arial, Helvetica, sans-serif;
                 font-size: 12px;
                 @apply --ft-connection-list-item-quiescent-button-label;
             }
-            .quiescent-subtext {
+            #quiescentSubtext {
                 margin-top: 6px;
                 font-family: Arial, Helvetica, sans-serif;
                 font-size: small;
                 font-style: italic;
                 @apply --ft-connection-list-item-quiescent-subtext;
             }
-            .active-panel {
+            #activePanel {
                 @apply --ft-connection-list-item-active-panel;
             }
-            .active-spinner {
+            #activeSpinner {
                 @apply --ft-connection-list-item-active-spinner;
             }
-            .active-spinner-label {
+            #activeSpinnerLabel {
                 font-family: Arial, Helvetica, sans-serif;
                 font-size: 12px;
                 text-transform: uppercase;
@@ -111,10 +111,10 @@ This element displays a single FileThis connection resource, suitable for use in
         <!-- Root -->
         <div
             id="root"
-            class="root flex layout horizontal center"
+            class="flex layout horizontal center"
         >
             <!-- Name -->
-            <iron-label id="name" class="name" >
+            <iron-label id="name">
                 [[connection.name]]
             </iron-label>
 
@@ -124,7 +124,7 @@ This element displays a single FileThis connection resource, suitable for use in
             <!-- Logo -->
             <div
                 id="logo"
-                class="logo layout horizontal center center-justified"
+                class="layout horizontal center center-justified"
             >
                 <img
                     style="width:auto; max-width:100%;"
@@ -140,14 +140,13 @@ This element displays a single FileThis connection resource, suitable for use in
             <!-- Quiescent panel -->
             <div
                 id="quiescentPanel"
-                class="quiescent-panel layout vertical center"
+                class="layout vertical center"
                 hidden="[[_quiescentPanelHidden]]"
             >
                 <!-- Button -->
                 <paper-button
                     raised
                     id="quiescentButton"
-                    class="quiescent-button"
                     hidden="[[_quiescentButtonHidden]]"
                     on-tap="_onQuiescentButtonTapped"
                 >
@@ -155,7 +154,6 @@ This element displays a single FileThis connection resource, suitable for use in
                     <div style="width:3px;"></div>
                     <iron-label
                         id="quiescentButtonLabel"
-                        class="quiescent-button-label"
                     >
                     </iron-label>
                 </paper-button>
@@ -163,7 +161,6 @@ This element displays a single FileThis connection resource, suitable for use in
                 <!-- Subtext -->
                 <iron-label
                     id="quiescentSubtext"
-                    class="quiescent-subtext"
                     hidden="[[_quiescentSubtextHidden]]"
                 >
                     [[_getRefreshDateString(connection)]]
@@ -173,13 +170,12 @@ This element displays a single FileThis connection resource, suitable for use in
             <!-- Active panel -->
             <div
                 id="activePanel"
-                class="active-panel layout horizontal center"
+                class="layout horizontal center"
                 hidden="[[_activePanelHidden]]"
             >
                 <!-- Spinner -->
                 <paper-spinner-lite
                     id="activeSpinner"
-                    class="active-spinner"
                 >
                 </paper-spinner-lite>
 
@@ -188,7 +184,6 @@ This element displays a single FileThis connection resource, suitable for use in
                 <!-- Label -->
                 <iron-label
                     id="activeSpinnerLabel"
-                    class="active-spinner-label"
                 >
                 </iron-label>
             </div>
