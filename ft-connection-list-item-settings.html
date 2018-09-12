@@ -1,5 +1,5 @@
 <!--
-Copyright 2018 FileThis, Inc.
+Copyright 2017 FileThis, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,41 +14,38 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-<link rel="import" href="../ft-global-variable/ft-global-variable.html">
+
+<!-- Imports -->
+<link rel="import" href="../iron-meta/iron-meta.html">
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="ft-connection-list-item-settings-behavior.html">
 
 
-<!--
-`<ft-connection-list-item-settings>`
-
-Settings applied to the ft-connection-list-item.
-
-@demo
--->
 <dom-module id="ft-connection-list-item-settings">
 
     <script>
-        Polymer({
 
+        Polymer
+        ({
             is: 'ft-connection-list-item-settings',
 
-            behaviors: [FileThis.ConnectionListItemSettingsBehavior],
+            behaviors: [
+                FileThis.ConnectionListItemSettingsBehavior,
+            ],
 
-            attached: function()
+            ready: function()
             {
-                // setTimeout(function()
-                // {
-                //     this._initializeSettings();
-                // }.bind(this), 1000);
-                this.async(this._initializeSettings);
+                this._storeSettings();
             },
 
-            _initializeSettings: function()
+            _storeSettings: function()
             {
-                window.FileThis.FtGlobalVariables.propagateValue("ft-connection-list-item-allow-manual-fetch", this.allowManualFetch);
+                new Polymer.IronMeta({type: "setting", key: "ft-connection-list-item-allow-manual-fetch", value: this.ftConnectionListItemAllowManualFetch});
             },
 
         });
+
     </script>
+
 </dom-module>
+

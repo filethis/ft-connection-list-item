@@ -16,7 +16,6 @@ limitations under the License.
 
 
 <!-- Imports -->
-<link rel="import" href="../../ft-global-variable/ft-global-variable.html">
 <link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../iron-input/iron-input.html">
 <link rel="import" href="../../paper-checkbox/paper-checkbox.html">
@@ -54,10 +53,7 @@ This element defines a source grid example that allows experimentation with conf
         </style>
 
         <!-- Settings -->
-        <ft-global-variable name="ft-connection-list-item-allow-manual-fetch" value="{{allowManualFetch}}"></ft-global-variable>
-
-        <!-- Settings -->
-        <paper-checkbox checked="{{allowManualFetch}}">
+        <paper-checkbox checked="{{ftConnectionListItemAllowManualFetch}}">
             Allow Manual Fetch
         </paper-checkbox>
 
