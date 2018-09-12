@@ -54,9 +54,12 @@ limitations under the License.
 
         },
 
-        ready: function()
+        attached: function()
         {
-            this._applySettings();
+            this.async(function()
+            {
+                this._applySettings();
+            });
         },
 
         _applySettings: function()
@@ -82,13 +85,13 @@ limitations under the License.
             if (!this._hasSettings())
                 return "";
 
-            var settings = "\n<ft-connection-list-item-settings";
+            var settings = "<ft-connection-list-item-settings";
 
             // Keep alphabetized
             if (this.ftConnectionListItemAllowManualFetch !== true)
                 settings += this._buildSettingAttribute("ft-connection-list-item-allow-manual-fetch", "false");
 
-            settings += ">\n</ft-connection-list-item-settings\n";
+            settings += ">\n</ft-connection-list-item-settings>\n";
 
             return settings;
         },
