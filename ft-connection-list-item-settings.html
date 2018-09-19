@@ -19,9 +19,13 @@ limitations under the License.
 <link rel="import" href="../iron-meta/iron-meta.html">
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="ft-connection-list-item-settings-behavior.html">
+<link rel="import" href="../app-storage/app-localstorage/app-localstorage-document.html">
 
 
 <dom-module id="ft-connection-list-item-settings">
+
+    <app-localstorage-document key="ftConnectionListItemAllowManualFetch" data="{{ftConnectionListItemAllowManualFetch}}">
+    </app-localstorage-document>
 
     <script>
 
