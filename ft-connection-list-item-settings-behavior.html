@@ -50,14 +50,8 @@ limitations under the License.
                 type: Object,
                 value: true,
                 notify: true,
-                observer: "foo"
             },
 
-        },
-
-        foo: function(to, from)
-        {
-            var foo = "bar";
         },
 
         attached: function()
@@ -83,7 +77,7 @@ limitations under the License.
 
         generateSettingsElement: function()
         {
-            if (!this._hasSettings())
+            if (!this.hasSettings())
                 return "";
 
             var settings = "<ft-connection-list-item-settings";
@@ -103,11 +97,16 @@ limitations under the License.
             return '\n    ' + propertyName + '="' + propertyValue + '"';
         },
 
-        _hasSettings: function()
+        hasSettings: function()
         {
             if (this.ftConnectionListItemAllowManualFetch !== true)
                 return true;
             return false;
+        },
+
+        revertToDefaults: function()
+        {
+            this.ftConnectionListItemAllowManualFetch = true;
         },
     }
 
