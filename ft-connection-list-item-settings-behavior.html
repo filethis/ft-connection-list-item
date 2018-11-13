@@ -35,6 +35,7 @@ limitations under the License.
 
         observers:[
             '_onInternalSettingsChanged(ftConnectionListItemAllowManualFetch)',
+            '_onInternalSettingsChanged(ftConnectionListItemShowDocumentCount)',
         ],
 
         properties: {
@@ -52,6 +53,19 @@ limitations under the License.
                 notify: true,
             },
 
+            /**
+             * Whether to show the document count when retrieving, or not.
+             *
+             * Note that you can provide the strings "true" and "false" as attribute values.
+             *
+             * @type {boolean}
+             */
+            ftConnectionListItemShowDocumentCount: {
+                type: Object,
+                value: true,
+                notify: true,
+            },
+
         },
 
         attached: function()
@@ -59,6 +73,7 @@ limitations under the License.
             this.async(function()
             {
                 this._applySettingToProperty("ft-connection-list-item-allow-manual-fetch", "ftConnectionListItemAllowManualFetch");
+                this._applySettingToProperty("ft-connection-list-item-show-document-count", "ftConnectionListItemShowDocumentCount");
             });
         },
 
@@ -95,6 +110,8 @@ limitations under the License.
             // Keep alphabetized
             if (this.ftConnectionListItemAllowManualFetch !== true)
                 settings += this._buildSettingAttribute("ft-connection-list-item-allow-manual-fetch", "false", indent);
+            if (this.ftConnectionListItemShowDocumentCount !== true)
+                settings += this._buildSettingAttribute("ft-connection-list-item-show-document-count", "false", indent);
 
             settings += ">\n" + indent + "</ft-connection-list-item-settings>\n";
 
@@ -111,12 +128,15 @@ limitations under the License.
         {
             if (this.ftConnectionListItemAllowManualFetch !== true)
                 return true;
+            if (this.ftConnectionListItemShowDocumentCount !== true)
+                return true;
             return false;
         },
 
         revertToDefaults: function()
         {
             this.ftConnectionListItemAllowManualFetch = true;
+            this.ftConnectionListItemShowDocumentCount = true;
         },
     }
 

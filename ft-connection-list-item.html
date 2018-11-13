@@ -212,7 +212,7 @@ This element displays a single FileThis connection resource, suitable for use in
 
             observers:
             [
-                "_onConnectionChanged(connection.state, connection.documentCount, ftConnectionListItemAllowManualFetch)",
+                "_onConnectionChanged(connection.state, connection.documentCount, ftConnectionListItemAllowManualFetch, ftConnectionListItemShowDocumentCount)",
             ],
 
             properties: {
@@ -341,7 +341,8 @@ This element displays a single FileThis connection resource, suitable for use in
                     case "uploading":
                         isActive = true;
                         var documentCount = this.connection.documentCount;
-                        if (documentCount === 0)
+                        if (documentCount === 0 ||
+                            !this.ftConnectionListItemShowDocumentCount)
                             label = "Retrieving";
                         else
                             label = "Retrieved " + documentCount.toString();
