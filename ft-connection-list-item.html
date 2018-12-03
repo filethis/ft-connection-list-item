@@ -23,6 +23,9 @@ limitations under the License.
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../paper-spinner/paper-spinner-lite.html">
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../polymer/lib/elements/custom-style.html">
+<link rel="import" href="../shadycss/apply-shim.html">
 
 
 <!--
@@ -94,15 +97,17 @@ This element displays a single FileThis connection resource, suitable for use in
             }
         </style>
 
-        <style is="custom-style">
-            paper-spinner-lite.spinner
-            {
-                --paper-spinner-color: black;
-                --paper-spinner-stroke-width: 2px;
-                width: 17px;
-                height: 17px;
-            }
-        </style>
+        <custom-style>
+            <style>
+                paper-spinner-lite.spinner
+                {
+                    --paper-spinner-color: black;
+                    --paper-spinner-stroke-width: 2px;
+                    width: 17px;
+                    height: 17px;
+                }
+            </style>
+        </custom-style>
 
         <!-- Root -->
         <div
