@@ -1,4 +1,4 @@
-<!--
+/*
 Copyright 2018 FileThis, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,29 +12,24 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
--->
-
-
-<!-- Imports -->
-<link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../../iron-input/iron-input.html">
-<link rel="import" href="../../paper-checkbox/paper-checkbox.html">
-<link rel="import" href="../../polymer/polymer.html">
-<link rel="import" href="../../polymer/lib/elements/custom-style.html">
-<link rel="import" href="../ft-connection-list-item-settings-behavior.html">
-<link rel="import" href="../../shadycss/apply-shim.html">
-
-
-<!--
+*/
+/* Imports */
+/**
 
 This element defines a source grid example that allows experimentation with configuration.
 
 @demo
- -->
-<dom-module id="ft-connection-list-item-settings-editor">
+ */
+/*
+  FIXME(polymer-modulizer): the above comments were extracted
+  from HTML and may be out of place here. Review them and
+  then delete this comment!
+*/
+import '../ft-connection-list-item-settings-behavior.js';
 
-    <template>
-
+Polymer
+({
+  _template: Polymer.html`
         <style include="iron-flex iron-flex-alignment iron-positioning"></style>
 
         <style>
@@ -62,22 +57,11 @@ This element defines a source grid example that allows experimentation with conf
         <paper-checkbox checked="{{ftConnectionListItemShowDocumentCount}}">
             Show Document Count
         </paper-checkbox>
+`,
 
-    </template>
+  is: 'ft-connection-list-item-settings-editor',
 
-    <script>
-
-        Polymer
-        ({
-            is: 'ft-connection-list-item-settings-editor',
-
-            behaviors: [
-                FileThis.ConnectionListItemSettingsBehavior,
-            ],
-
-        });
-
-    </script>
-
-</dom-module>
-
+  behaviors: [
+      FileThis.ConnectionListItemSettingsBehavior,
+  ]
+});
