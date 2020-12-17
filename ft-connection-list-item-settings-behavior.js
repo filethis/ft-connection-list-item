@@ -21,6 +21,8 @@ limitations under the License.
 // Make sure the "FileThis" namespace exists
 window.FileThis = window.FileThis || {};
 
+import { IronMeta } from '@polymer/iron-meta/iron-meta.js';
+
 /**
  * `<ft-connection-list-item-settings-behavior>`
  *
@@ -77,7 +79,7 @@ FileThis.ConnectionListItemSettingsBehavior = {
 
     _applySettingToProperty: function(settingName, propertyName)
     {
-        var meta = new Polymer.IronMeta({type: "setting", key: settingName});
+        var meta = new IronMeta({type: "setting", key: settingName});
         var value = meta.value;
         if (value !== undefined)
             this.set(propertyName, value);

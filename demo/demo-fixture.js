@@ -30,10 +30,12 @@ import '../ft-connection-list-item.js';
 
 import '../ft-connection-list-item-settings.js';
 import './ft-connection-list-item-settings-editor.js';
+import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 
 Polymer
 ({
-  _template: Polymer.html`
+  _template: html`
         <style include="iron-flex iron-flex-alignment iron-positioning"></style>
 
         <style>
@@ -47,52 +49,49 @@ Polymer
         <ft-connection-list-item-settings ft-connection-list-item-allow-manual-fetch="true">
         </ft-connection-list-item-settings>
 
-        <ft-element-demo name="ft-connection-list-item" show-config="true" style="width:100%; height: 100%; ">
-             Settings
-            <ft-connection-list-item-settings-editor slot="config" style="height:100%; padding:20px; " ft-connection-list-item-allow-manual-fetch="{{ftConnectionListItemAllowManualFetch}}" ft-connection-list-item-show-document-count="{{ftConnectionListItemShowDocumentCount}}">
-            </ft-connection-list-item-settings-editor>
+            Settings
+        <ft-connection-list-item-settings-editor slot="config" style="height:100%; padding:20px; " ft-connection-list-item-allow-manual-fetch="{{ftConnectionListItemAllowManualFetch}}" ft-connection-list-item-show-document-count="{{ftConnectionListItemShowDocumentCount}}">
+        </ft-connection-list-item-settings-editor>
 
-            <!-- Panel -->
-            <div slot="instance" class="layout vertical scroll" style="width:100%; height: 100%; ">
-                 Waiting
-                <ft-connection-list-item id="itemWaiting" ft-connection-list-item-allow-manual-fetch="{{ftConnectionListItemAllowManualFetch}}" ft-connection-list-item-show-document-count="{{ftConnectionListItemShowDocumentCount}}">
-                </ft-connection-list-item>
+        <!-- Panel -->
+        <div slot="instance" class="layout vertical scroll" style="width:100%; height: 100%; ">
+                Waiting
+            <ft-connection-list-item id="itemWaiting" ft-connection-list-item-allow-manual-fetch="{{ftConnectionListItemAllowManualFetch}}" ft-connection-list-item-show-document-count="{{ftConnectionListItemShowDocumentCount}}">
+            </ft-connection-list-item>
 
-                <!-- Waiting, selected -->
-                <ft-connection-list-item id="itemWaitingSelected" ft-connection-list-item-allow-manual-fetch="{{ftConnectionListItemAllowManualFetch}}" ft-connection-list-item-show-document-count="{{ftConnectionListItemShowDocumentCount}}">
-                </ft-connection-list-item>
+            <!-- Waiting, selected -->
+            <ft-connection-list-item id="itemWaitingSelected" ft-connection-list-item-allow-manual-fetch="{{ftConnectionListItemAllowManualFetch}}" ft-connection-list-item-show-document-count="{{ftConnectionListItemShowDocumentCount}}">
+            </ft-connection-list-item>
 
-                <!-- Connecting -->
-                <ft-connection-list-item id="itemConnecting" ft-connection-list-item-allow-manual-fetch="{{ftConnectionListItemAllowManualFetch}}" ft-connection-list-item-show-document-count="{{ftConnectionListItemShowDocumentCount}}">
-                </ft-connection-list-item>
+            <!-- Connecting -->
+            <ft-connection-list-item id="itemConnecting" ft-connection-list-item-allow-manual-fetch="{{ftConnectionListItemAllowManualFetch}}" ft-connection-list-item-show-document-count="{{ftConnectionListItemShowDocumentCount}}">
+            </ft-connection-list-item>
 
-                <!-- Downloading -->
-                <ft-connection-list-item id="itemDownloading" ft-connection-list-item-allow-manual-fetch="{{ftConnectionListItemAllowManualFetch}}" ft-connection-list-item-show-document-count="{{ftConnectionListItemShowDocumentCount}}">
-                </ft-connection-list-item>
+            <!-- Downloading -->
+            <ft-connection-list-item id="itemDownloading" ft-connection-list-item-allow-manual-fetch="{{ftConnectionListItemAllowManualFetch}}" ft-connection-list-item-show-document-count="{{ftConnectionListItemShowDocumentCount}}">
+            </ft-connection-list-item>
 
-                <!-- Downloading, with document -->
-                <ft-connection-list-item id="itemDownloadingWithDocument" ft-connection-list-item-allow-manual-fetch="{{ftConnectionListItemAllowManualFetch}}" ft-connection-list-item-show-document-count="{{ftConnectionListItemShowDocumentCount}}">
-                </ft-connection-list-item>
+            <!-- Downloading, with document -->
+            <ft-connection-list-item id="itemDownloadingWithDocument" ft-connection-list-item-allow-manual-fetch="{{ftConnectionListItemAllowManualFetch}}" ft-connection-list-item-show-document-count="{{ftConnectionListItemShowDocumentCount}}">
+            </ft-connection-list-item>
 
-                <!-- Question -->
-                <ft-connection-list-item id="itemQuestion" ft-connection-list-item-allow-manual-fetch="{{ftConnectionListItemAllowManualFetch}}" ft-connection-list-item-show-document-count="{{ftConnectionListItemShowDocumentCount}}">
-                </ft-connection-list-item>
+            <!-- Question -->
+            <ft-connection-list-item id="itemQuestion" ft-connection-list-item-allow-manual-fetch="{{ftConnectionListItemAllowManualFetch}}" ft-connection-list-item-show-document-count="{{ftConnectionListItemShowDocumentCount}}">
+            </ft-connection-list-item>
 
-                <!-- Error -->
-                <ft-connection-list-item id="itemError" ft-connection-list-item-allow-manual-fetch="{{ftConnectionListItemAllowManualFetch}}" ft-connection-list-item-show-document-count="{{ftConnectionListItemShowDocumentCount}}">
-                </ft-connection-list-item>
+            <!-- Error -->
+            <ft-connection-list-item id="itemError" ft-connection-list-item-allow-manual-fetch="{{ftConnectionListItemAllowManualFetch}}" ft-connection-list-item-show-document-count="{{ftConnectionListItemShowDocumentCount}}">
+            </ft-connection-list-item>
 
-                <!-- Completed -->
-                <ft-connection-list-item id="itemCompleted" ft-connection-list-item-allow-manual-fetch="{{ftConnectionListItemAllowManualFetch}}" ft-connection-list-item-show-document-count="{{ftConnectionListItemShowDocumentCount}}">
-                </ft-connection-list-item>
+            <!-- Completed -->
+            <ft-connection-list-item id="itemCompleted" ft-connection-list-item-allow-manual-fetch="{{ftConnectionListItemAllowManualFetch}}" ft-connection-list-item-show-document-count="{{ftConnectionListItemShowDocumentCount}}">
+            </ft-connection-list-item>
 
-                <!-- Foo -->
-                <ft-connection-list-item id="itemFoo" ft-connection-list-item-allow-manual-fetch="{{ftConnectionListItemAllowManualFetch}}" ft-connection-list-item-show-document-count="{{ftConnectionListItemShowDocumentCount}}">
-                </ft-connection-list-item>
+            <!-- Foo -->
+            <ft-connection-list-item id="itemFoo" ft-connection-list-item-allow-manual-fetch="{{ftConnectionListItemAllowManualFetch}}" ft-connection-list-item-show-document-count="{{ftConnectionListItemShowDocumentCount}}">
+            </ft-connection-list-item>
 
-            </div>
-
-        </ft-element-demo>
+        </div>
 `,
 
   is: 'demo-fixture',

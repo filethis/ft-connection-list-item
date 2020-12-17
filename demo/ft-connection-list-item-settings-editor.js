@@ -27,9 +27,14 @@ This element defines a source grid example that allows experimentation with conf
 */
 import '../ft-connection-list-item-settings-behavior.js';
 
+import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import '@polymer/paper-checkbox/paper-checkbox.js';
+import '@polymer/paper-button/paper-button.js';
+
 Polymer
 ({
-  _template: Polymer.html`
+  _template: html`
         <style include="iron-flex iron-flex-alignment iron-positioning"></style>
 
         <style>

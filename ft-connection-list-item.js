@@ -25,10 +25,16 @@ This element displays a single FileThis connection resource, suitable for use in
   from HTML and may be out of place here. Review them and
   then delete this comment!
 */
+
+import '@polymer/iron-flex-layout/iron-flex-layout-classes.js';
+import '@polymer/polymer/polymer-legacy.js';
+import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { IronResizableBehavior } from '@polymer/iron-resizable-behavior/iron-resizable-behavior.js';
 import './ft-connection-list-item-settings-behavior.js';
 
 Polymer({
-  _template: Polymer.html`
+  _template: html`
         <style include="iron-flex iron-flex-alignment iron-positioning"></style>
 
         <style>
@@ -159,7 +165,7 @@ Polymer({
 
   behaviors: [
       FileThis.ConnectionListItemSettingsBehavior,
-      Polymer.IronResizableBehavior,
+      IronResizableBehavior
   ],
 
   /**

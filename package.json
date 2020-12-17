@@ -12,10 +12,13 @@
   "dependencies": {
     "@polymer/iron-icon": "^3.0.0",
     "@polymer/iron-label": "^3.0.0",
+    "@polymer/paper-button": "^3.0.0",
     "@polymer/paper-checkbox": "^3.0.0",
     "@polymer/paper-dropdown-menu": "^3.0.0",
     "@polymer/paper-item": "^3.0.0",
+    "@polymer/iron-meta": "^3.0.0",
     "@polymer/paper-listbox": "^3.0.0",
+    "@polymer/iron-resizable-behavior": "^3.0.0",
     "@polymer/paper-spinner": "^3.0.0",
     "@polymer/polymer": "^3.0.0"
   },

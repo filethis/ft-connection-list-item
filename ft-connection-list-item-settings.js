@@ -19,6 +19,9 @@ limitations under the License.
   from HTML and may be out of place here. Review them and
   then delete this comment!
 */
+import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
+import { IronMeta } from '@polymer/iron-meta/iron-meta.js';
+
 import './ft-connection-list-item-settings-behavior.js';
 
 Polymer
@@ -36,8 +39,8 @@ Polymer
 
     _storeSettings: function()
     {
-        new Polymer.IronMeta({type: "setting", key: "ft-connection-list-item-allow-manual-fetch", value: this.ftConnectionListItemAllowManualFetch});
-        new Polymer.IronMeta({type: "setting", key: "ft-connection-list-item-show-document-count", value: this.ftConnectionListItemShowDocumentCount});
+        new IronMeta({type: "setting", key: "ft-connection-list-item-allow-manual-fetch", value: this.ftConnectionListItemAllowManualFetch});
+        new IronMeta({type: "setting", key: "ft-connection-list-item-show-document-count", value: this.ftConnectionListItemShowDocumentCount});
     },
 
 });
