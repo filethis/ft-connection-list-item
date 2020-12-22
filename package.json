@@ -1,6 +1,6 @@
 {
   "description": "An element that renders a single FileThis connection resource as a list item",
-  "name": "ft-connection-list-item",
+  "name": "@filethis/ft-connection-list-item",
   "version": "1.0.31",
   "resolutions": {
     "inherits": "2.0.3",
@@ -15,7 +15,6 @@
     "*.make",
     "*.png",
     "*.svg",
-    ".yalc/",
     "data/",
     "demo/",
     "test/",
